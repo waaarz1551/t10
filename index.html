@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Technology Resource Calculator</title>
+    <title>T10 Resource Calculator</title>
     <style>
         * {
             box-sizing: border-box;
@@ -228,7 +228,77 @@
             color: #7f8c8d;
             font-style: italic;
         }
-        
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .buildings-section {
+            background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(44, 62, 80, 0.08);
+            padding: 20px 18px 10px 18px;
+            margin-bottom: 30px;
+            transition: box-shadow 0.3s;
+        }
+
+        .buildings-section:hover {
+            box-shadow: 0 4px 24px rgba(44, 62, 80, 0.15);
+        }
+
+        .buildings-section table.technology-table {
+            background: transparent;
+            box-shadow: none;
+            margin-bottom: 0;
+        }
+
+        .buildings-section th {
+            background: linear-gradient(to right, #3498db, #6dd5fa);
+            color: #fff;
+            font-weight: 600;
+            border-radius: 6px 6px 0 0;
+            border: none;
+            padding: 12px 8px;
+        }
+
+        .buildings-section td {
+            background: rgba(255,255,255,0.85);
+            border-bottom: 1px solid #e3e3e3;
+            padding: 10px 8px;
+            vertical-align: middle;
+            font-size: 1em;
+        }
+
+        .buildings-section tr:last-child td {
+            border-bottom: none;
+        }
+
+        .buildings-section label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .building-checkbox {
+            accent-color: #3498db;
+            width: 18px;
+            height: 18px;
+            margin-right: 6px;
+            cursor: pointer;
+            transition: box-shadow 0.2s;
+        }
+
+        .buildings-section tr:hover td {
+            background: #f0f7ff;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
@@ -378,6 +448,60 @@
             </tbody>
         </table>
         
+        <div class="buildings-section" style="margin-bottom: 30px;">
+            <div style="font-weight: bold; margin-bottom: 10px;">
+                <span id="buildings-title">Buildings (optional):</span>
+            </div>
+            <table class="technology-table" style="margin-bottom: 0;">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th id="buildings-iron-header">Iron (m)</th>
+                        <th id="buildings-bread-header">Bread (m)</th>
+                        <th id="buildings-gold-header">Gold (m)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <label>
+                                <input type="checkbox" class="building-checkbox" data-index="0">
+                                <span class="tech-icon"><img src="main/hq.png" alt="HQ"></span>
+                                <span id="hq-label">HQ lvl.30</span>
+                            </label>
+                        </td>
+                        <td id="building-iron-0">1,300</td>
+                        <td id="building-bread-0">1,300</td>
+                        <td id="building-gold-0">425</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>
+                                <input type="checkbox" class="building-checkbox" data-index="1">
+                                <span class="tech-icon"><img src="main/techcentre.png" alt="Tech Centre"></span>
+                                <span id="techcentre-label">Tech centre lvl.30</span>
+                            </label>
+                        </td>
+                        <td id="building-iron-1">1,200</td>
+                        <td id="building-bread-1">1,200</td>
+                        <td id="building-gold-1">375</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>
+                                <input type="checkbox" class="building-checkbox" data-index="2">
+                                <span class="tech-icon"><img src="main/barracks.png" alt="Barracks"></span>
+                                <span id="barracks-label">Barracks lvl.30</span>
+                            </label>
+                        </td>
+                        <td id="building-iron-2">666</td>
+                        <td id="building-bread-2">666</td>
+                        <td id="building-gold-2">270</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
         <div class="totals">
             <div class="total-card valor">
                 <div class="total-label" id="total-valor-label">Valor Medals Required</div>
@@ -399,6 +523,10 @@
         
         <div class="auto-reset-note" id="auto-reset-note">
             Please note: the values are only references, the actual values may vary depending on your buffs. The calculations are updated automatically. To reset, select current level 0 and maximum target level in each technology.
+        </div>
+
+        <div class="footer">
+            <p>T10 Resource Calculator v1.0.1 | For game optimization purposes only</p>
         </div>
     </div>
 
@@ -611,7 +739,7 @@
                     <td>
                         <div>
                             <span class="tech-icon">
-                                <img src="${tech.icon}" alt="${tech.name[currentLanguage]}">
+                                <img src="${tech.icon}" alt="${tech.name[currentLanguage]}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjRjFGMUYxIi8+Cjx0ZXh0IHg9IjEyIiB5PSIxMiIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEwIiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SWNvbjwvdGV4dD4KPC9zdmc+'">
                             </span>
                             <span class="tech-name">${tech.name[currentLanguage]}</span>
                         </div>
@@ -727,6 +855,91 @@
             document.getElementById('total-bread').textContent = totalBread.toLocaleString() + 'm';
             document.getElementById('total-gold').textContent = totalGold.toLocaleString() + 'm';
         }
+
+        // Dados das construções
+        const buildingsData = [
+            {
+                name: { 'en': 'HQ lvl.30', 'pt-BR': 'QG nv.30' },
+                iron: 1300, bread: 1300, gold: 425
+            },
+            {
+                name: { 'en': 'Tech centre lvl.30', 'pt-BR': 'Centro de Tecnologia nv.30' },
+                iron: 1200, bread: 1200, gold: 375
+            },
+            {
+                name: { 'en': 'Barracks lvl.30', 'pt-BR': 'Quartel nv.30' },
+                iron: 666, bread: 666, gold: 270
+            }
+        ];
+
+        // Atualize textos das construções ao trocar idioma
+        function updateBuildingsLanguage() {
+            document.getElementById('buildings-title').textContent = currentLanguage === 'en' ? 'Buildings (optional):' : 'Construções (opcional):';
+            document.getElementById('buildings-iron-header').textContent = translations[currentLanguage].ironHeader + ' (m)';
+            document.getElementById('buildings-bread-header').textContent = translations[currentLanguage].breadHeader + ' (m)';
+            document.getElementById('buildings-gold-header').textContent = translations[currentLanguage].goldHeader + ' (m)';
+            document.getElementById('hq-label').textContent = buildingsData[0].name[currentLanguage];
+            document.getElementById('techcentre-label').textContent = buildingsData[1].name[currentLanguage];
+            document.getElementById('barracks-label').textContent = buildingsData[2].name[currentLanguage];
+        }
+
+        // Atualize a função updateLanguage para chamar updateBuildingsLanguage
+        const originalUpdateLanguage = updateLanguage;
+        updateLanguage = function() {
+            originalUpdateLanguage();
+            updateBuildingsLanguage();
+        }
+
+        // Calcule o total das construções marcadas
+        function getBuildingsTotals() {
+            let totalIron = 0, totalBread = 0, totalGold = 0;
+            document.querySelectorAll('.building-checkbox').forEach((checkbox, idx) => {
+                if (checkbox.checked) {
+                    totalIron += buildingsData[idx].iron;
+                    totalBread += buildingsData[idx].bread;
+                    totalGold += buildingsData[idx].gold;
+                }
+            });
+            return { iron: totalIron, bread: totalBread, gold: totalGold };
+        }
+
+        // Atualize a função updateTotals para somar construções
+        const originalUpdateTotals = updateTotals;
+        updateTotals = function() {
+            let totalValor = 0;
+            let totalIron = 0;
+            let totalBread = 0;
+            let totalGold = 0;
+
+            technologiesData.forEach((tech, index) => {
+                const rowTotals = updateRowTotals(index);
+                totalValor += rowTotals.valor;
+                totalIron += rowTotals.iron;
+                totalBread += rowTotals.bread;
+                totalGold += rowTotals.gold;
+            });
+
+            // Adicione os custos das construções marcadas
+            const buildingsTotals = getBuildingsTotals();
+            totalIron += buildingsTotals.iron;
+            totalBread += buildingsTotals.bread;
+            totalGold += buildingsTotals.gold;
+
+            document.getElementById('total-valor').textContent = totalValor.toLocaleString();
+            document.getElementById('total-iron').textContent = totalIron.toLocaleString() + 'm';
+            document.getElementById('total-bread').textContent = totalBread.toLocaleString() + 'm';
+            document.getElementById('total-gold').textContent = totalGold.toLocaleString() + 'm';
+        }
+
+        // Adicione evento para checkboxes das construções
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.building-checkbox').forEach(cb => {
+                cb.addEventListener('change', updateTotals);
+            });
+            updateBuildingsLanguage();
+        });
     </script>
+    <script data-goatcounter="https://waaarz.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
